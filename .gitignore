@@ -1,3 +1,7 @@
+# Customed
+.DS_Store
+*.un~
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
