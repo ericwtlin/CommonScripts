@@ -7,6 +7,11 @@ Validated in Python 2.7
 
 Refer to: https://mafayyaz.wordpress.com/2013/02/08/writing-simple-http-server-in-python-with-rest-and-json/
 
+
+Here is a sample of basic http server using “BaseHTTPRequestHandler”. The example exposed two rest interfaces:
+To ingest records into the web server
+To retrieve already ingested records from the web server
+
 Usage:
 Copy paste the code above and name it simplewebserver.py
 Starting WebServer:
@@ -92,8 +97,11 @@ class SimpleHttpServer():
     def waitForThread(self):
         self.server_thread.join()
 
+    '''
+    #seems not necessary
     def addRecord(self, recordID, jsonEncodedRecord):
         LocalData.records[recordID] = jsonEncodedRecord
+    '''
 
     def stop(self):
         self.server.shutdown()
