@@ -3,7 +3,7 @@
 HTTP Server
 Respond to GET/POST requests
 
-Validated in Python 2.7
+Validated on Python 2.7
 
 Refer to: https://mafayyaz.wordpress.com/2013/02/08/writing-simple-http-server-in-python-with-rest-and-json/
 
@@ -18,7 +18,7 @@ Starting WebServer:
 python simplewebserver.py
 
 POST add record example using curl:
-curl -X POST http://localhost:8080/api/v1/addrecord/1 -d ‘{\”asif1\”:\”test1\”}’ -H “Content-Type: application/json”
+curl -X POST http://localhost:8080/api/v1/addrecord/1 -d '{"id":100}' -H "Content-Type: application/json"
 
 GET record example using curl:
 curl -X GET http://localhost:8080/api/v1/getrecord/test     #does not exist this record
@@ -32,21 +32,32 @@ import threading
 import argparse
 import re
 import cgi
+import ujson as json
+import urllib
 import urlparse
 
-class LocalData(object):
-    records = {}
+class Recorder(object):
+    def __init__(self):
+        self.records = {}
 
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if None != re.search('/api/v1/addrecord/*', self.path):
             ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
-            if ctype == 'application/json' or ctype == 'application/x-www-form-urlencoded':
-                length = int(self.headers.getheader('content-length'))
-                data = urlparse.parse_qs(self.rfile.read(length), keep_blank_values=1)
+            if ctype == 'application/json':
+                content_len = int(self.headers.getheader('content-length', 0))
+                post_body = self.rfile.read(content_len)
+                json_data = json.loads(post_body)
                 recordID = self.path.split('/')[-1]
-                LocalData.records[recordID] = data
+                recorder.records[recordID] = json_data
+                print "record %s is added successfully" % recordID
+            elif ctype == 'application/x-www-form-urlencoded':
+                content_len = int(self.headers.getheader('content-length', 0))
+                post_body = self.rfile.read(content_len)
+                json_data = urlparse.parse_qs(post_body)    #decode for urllib.urlencode
+                recordID = self.path.split('/')[-1]
+                recorder.records[recordID] = json_data
                 print "record %s is added successfully" % recordID
             else:
                 data = {}
@@ -61,11 +72,11 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if None != re.search('/api/v1/getrecord/*', self.path):
             recordID = self.path.split('/')[-1]
-            if LocalData.records.has_key(recordID):
+            if recorder.records.has_key(recordID):
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
-                self.wfile.write(LocalData.records[recordID])
+                self.wfile.write(recorder.records[recordID])
             else:
                 self.send_response(400, 'Bad Request: record does not exist')
                 self.send_header('Content-Type', 'application/json')
@@ -75,6 +86,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
         return
+
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
@@ -113,6 +125,8 @@ if __name__ == '__main__':
     parser.add_argument('port', type=int, help='Listening port for HTTP Server')
     parser.add_argument('ip', help='HTTP Server IP')
     args = parser.parse_args()
+
+    recorder = Recorder()
 
     server = SimpleHttpServer(args.ip, args.port)
     print 'HTTP Server Running...........'
