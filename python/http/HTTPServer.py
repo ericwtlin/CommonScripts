@@ -99,6 +99,12 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 
 class SimpleHttpServer():
     def __init__(self, ip, port):
+        """
+
+        Args:
+            ip: 如果想让内网、外网、localhost等多个网址都能访问，可以设置成0.0.0.0
+            port:
+        """
         self.server = ThreadedHTTPServer((ip, port), HTTPRequestHandler)
 
     def start(self):
