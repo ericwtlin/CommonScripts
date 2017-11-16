@@ -6,9 +6,9 @@ def walk_dir_bfs(dir_path):
     list_dirs = os.walk(dir_path)
     for root, dirs, files in list_dirs:
         for d in dirs:
-            #print(os.path.join(root, d))
+            print(os.path.join(root, d))
         for f in files:
-            #print(os.path.join(root, f))
+            print(os.path.join(root, f))
 
 def walk_dir_dfs(dir_path):
     for lists in os.listdir(dir_path):
@@ -31,4 +31,5 @@ def dir_traversal(dir_path, only_file=True):
   return file_list
 
 if __name__ == "__main__":
-    walk_dir_dfs("/home/eric-lin/workspace/keras-learn/")
+    l = dir_traversal("/home/eric-lin/StateGrid/TrajectoriesMining/")
+    print(l)
