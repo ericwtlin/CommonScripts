@@ -7,18 +7,21 @@ Date:       17/11/30 下午12:06
 """
 import time
 import logging
-
+import platform
 
 class Timer(object):
-    def __init__(self, unit='s', system='unix'):
+    def __init__(self, unit='s'):
         """
 
         Args:
-            unit:  's', 'ms', 'standard float'
-            system: 'unix', 'windows'
+            unit:  's', 'ms'
         """
         self.anchors = []
-        self.system = system.lower()
+        if platform.system() == 'Linux' or platform.system() == 'Darwin':
+            self.system = 'unix'
+        elif platform.system() == 'Windows':
+            self.system = 'windows'
+        logging.debug("System type: %s" % self.system)
         self.unit = unit
 
     def get_cur_time(self):
@@ -69,7 +72,7 @@ class Timer(object):
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG,
         format='%(asctime)s %(levelname)s %(filename)s %(funcName)s %(lineno)d: %(message)s')
-    timer = Timer(unit='s', system='unix')
+    timer = Timer(unit='s')
     timer.tick("anchor 1")
     time.sleep(3)
     timer.tick("this is anchor 2")
