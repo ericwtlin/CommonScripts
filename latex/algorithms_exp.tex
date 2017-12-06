@@ -1,0 +1,60 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass{article}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{CJK}
+
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+	
+
+	
+\section{exp}
+
+for循环和repeat until循环的用法
+\setlength{\textfloatsep}{5pt}% Remove \textfloatsep
+\begin{algorithm}[h]
+	\scriptsize
+	\caption{Some Algorithm}
+	\label{alg:S-DBSCAN}
+	\KwIn{coreEps, expandEps, minPts}
+	\KwOut{clustering results}
+	
+	$generation\_num$ = 1\;
+	\Repeat{the best fitness is convergent or $generation\_num > MAX\_GENERATION$}{
+		\For{\(i=1\) to \($I$\)}{
+			Evaluate the fitness of individual $i$\;
+		}
+		Use tournament selection to select the most fit individuals\;
+		Generate the next $I$-individual generation by crossover and mutation\;
+		$generation\_num$ ++\;
+	}
+	
+	\Return{best individual}
+\end{algorithm}
+
+
+foreach循环的用法
+\begin{algorithm}
+	\caption{Find an \texttt{MFS} of a failing \texttt{SPARQL} query~$Q$}
+	\SetKwInOut{Input}{inputs}
+	\SetKwInOut{Output}{output}
+	\SetKwProg{FindAnMFS}{FindAnMFS}{}{}
+	
+	\FindAnMFS{$(Q,D)$}{
+		\Input{A failing query $Q = t_1 \wedge \dots \wedge t_n$; an \texttt{RDF} database $D$}
+		\Output{An \texttt{MFS} denoted by $Q^*$}
+		$Q^* \gets \emptyset$\;
+		$Q' \gets Q$\;
+		\ForEach{triple pattern $t_i \in Q$}{    % foreach
+			$Q' \gets Q' - t_i$\;
+			\If{$[[Q' \wedge Q^*]]_D \neq \emptyset$}{%
+				$Q^* \gets Q^* \wedge t_i$\;
+			}
+		}
+		\KwRet{$Q^*$}\;
+	}
+\end{algorithm}
+
+\end{CJK}
+\end{document}
