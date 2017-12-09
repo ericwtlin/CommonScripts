@@ -56,5 +56,40 @@ foreach循环的用法
 	}
 \end{algorithm}
 
+
+
+\begin{algorithm}
+	通常的if写法\\
+	\If{$\max_{\mathcal{AV}} > \theta_5$}
+	{
+		\Return the tracklet with $\max_{\mathcal{AV}}$.
+	}
+	
+	通常的if else 写法\\
+	\uIf{$\max_{\mathcal{AV}} > \theta_5$}
+	{
+		\Return the tracklet with $\max_{\mathcal{AV}}$.
+	}
+	\Else
+	{
+		\Return no speaker.
+	}   
+	
+	节省行数的if else写法\\
+	\lIf{$\max_{\mathcal{AV}} > \theta_5$}
+	{
+		\Return the tracklet with $\max_{\mathcal{AV}}$.
+	}
+	\lElse
+	{
+		\Return no speaker.
+	}  
+\end{algorithm}
+
+
+
+	
+
+
 \end{CJK}
 \end{document}
