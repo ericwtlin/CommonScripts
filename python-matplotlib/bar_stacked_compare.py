@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 # This script is used for making bar comparison graph.
-# Environment: Both python 2.7 and python 3.5 are OK.
+# Environment: Works fine for matploblib 1.5.3, but there seems something wrong for matplotlib 2.0.0(Windows 10) and matplotlib 2.1.0(linux)
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,13 +20,17 @@ def make_model_compare_graph():
         x1_data.append(start + (2 * bar_width + gap_bars_width + gap_groups_width) * i)
         x2_data.append(x1_data[i] + bar_width + gap_bars_width)
         xticks_x.append(x1_data[i] + bar_width + gap_bars_width / 2)
-        print(x1_data[i] + bar_width + gap_bars_width / 2)
 
     xticks_label = ['SL=0.01', 'SL=0.02', 'SL=0.03']
 
     exp1_result = [0, 56.09, 12.82]
     exp2_result = [58.66, 17.98, 8.47]
     dbscan_time = [2.43] * len(exp2_result)
+    '''
+    exp1_result = [56.09, 12.82]
+    exp2_result = [17.98, 8.47]
+    dbscan_time = [2.43] * len(exp2_result)
+    '''
 
     #画第一幅图strict
     x_label = "Side Length"

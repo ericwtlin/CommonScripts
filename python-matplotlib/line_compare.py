@@ -36,9 +36,9 @@ def make_line_graph(x_ticks, y1, figure_path="test.jpg", figure_title="test", y1
     plt.figure(figsize=[7, 4])
     plt.ylim(y_min, y_max)
 
-    plt.plot(x, y1, 'd-', label=y1_desc, linewidth=1.5, markersize=5, color="#0040FF")
+    plt.plot(x, y1, '^-', label=y1_desc, linewidth=1.5, markersize=5, color="#F7819F")
     if y2 is not None:
-        plt.plot(x, y2, '.-', label=y2_desc, linewidth=1.5, markersize=5, color="#FF0000")
+        plt.plot(x, y2, 's-', label=y2_desc, linewidth=1.5, markersize=5, color="#00BFFF")
         plt.legend(loc='upper right', frameon=False)
 
     else:
@@ -65,4 +65,4 @@ if __name__ == "__main__":
     for y in y1:
         y2.append(y - 0.2)
 
-    make_line_graph(x_ticks, np.array(y1), y2=np.array(y2))
+    make_line_graph(x_ticks, np.array(y1), y2=np.array(y2), figure_path="line_compare.png")

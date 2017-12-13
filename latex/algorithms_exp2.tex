@@ -1,0 +1,42 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass{article}
+\usepackage{mathtools,algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{CJK}
+
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+	
+
+	
+\section{exp}
+
+\begin{algorithm}
+	\caption{Euclid's algorithm}
+	\begin{algorithmic}[1]
+		\Procedure{Euclid}{$m,l$}\Comment{The g.c.d.\ of~$m$ and~$l$}
+		\State $r\gets m\bmod l$
+		\While{$r \neq 0$}\Comment{We have the answer if~$r$ is $0$}
+		\State $m \gets l$
+		\State $\hphantom{m}\mathllap{l} \gets r$
+		\State $\hphantom{m}\mathllap{r} \gets m\bmod l$
+		
+		
+		%$$CP_j = \argmin_{CP_k \in CP}dist(P_i, CP_k);$$\\
+		
+		\EndWhile
+		\While{$r \neq 0$}\Comment{We have the answer if~$r$ is $0$}
+		\State $m \gets l$
+		\State $\mathrlap{l}\hphantom{m} \gets r$
+		\State $\mathrlap{r}\hphantom{m} \gets m\bmod l$
+		\EndWhile
+		\State \textbf{return} $l$\Comment{The g.c.d.\ is~$l$}
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+	
+
+
+\end{CJK}
+\end{document}

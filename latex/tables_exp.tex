@@ -1,0 +1,157 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass{article}
+\usepackage{CJK}
+
+
+\usepackage{tabu}
+
+
+\usepackage{graphicx}
+
+
+%\usepackage{makecell}
+
+\usepackage{array}
+
+
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}
+		
+		下面这个是正常的表格. \\在列设定为center的时候，是没办法控制列宽的，除非用下面的复杂的表格，有一个简单的办法：直接在列的前后内容（比如列头的前后，插入一些空格\quad，就可以增加宽度了）
+		\begin{table}[h!]
+			\caption{Results of multi-label CRF model with different feature sets.}
+			\begin{tabular}{c c c c  }
+				\hline
+				\rule{0pt}{8pt}\textbf{Feature set} & \textbf{Precision} & \textbf{Recall} & \textbf{F${_1}$-Score} \tabularnewline
+				\hline
+				\rule{0pt}{8pt}CRF + BOW & 0.8189 & 0.5795 & 0.6787\tabularnewline
+				%\hline
+				\rule{0pt}{8pt}CRF + BOW + POS & 0.8052 & 0.6086 & 0.6932\tabularnewline
+				\hline
+			\end{tabular}
+		\end{table}
+		
+		
+		
+		
+		
+		下面要展示如何制作复杂的表格
+		
+		法一：使用tabu宏包
+		
+		\tabulinesep =2ex
+		\begin{tabu} to 10cm {|X[$$ c] |X[$$ c]|X[$$4 c]|}
+			\hline  s & b &  f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k){\rm{e}}^{\pm{\rm{i}}kx_{n}}{\rm{d}}k\\
+			\hline T & -1 & 2\\
+			\hline
+			\end{tabu}
+		
+		
+		
+		
+		法二：使用graphicx宏包. 这个方法和makecell宏包冲突
+		
+		
+		\begin{tabular}{| c | >{\centering}c | >{\centering\vspace{6mm}}m{6cm}<{\vspace{6mm}} |}
+		\hline
+		\scalebox{1}[1]{s} & \scalebox{1}[1]{\setlength{\fboxsep}{0pt}\fbox{b}} &  ${\displaystyle f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k)e^{\pm ikx_{n}}\,{\rm d}k}$ \tabularnewline\hline
+		T &1&2\tabularnewline\hline
+		\end{tabular}
+		
+		\begin{verbatim}
+		说明：
+		
+		垂直居中效果和scalebox无关。
+		
+		重点在于：
+		
+		>{\centering\vspace{6mm}}m{6cm}<{\vspace{6mm}}
+		tabu 倒是倒是不错的包，不过我实际上是用 lyx 写的东西，不方便用 tabu
+		
+		最后还是把 arraystretch 调小了，看上去差不多就得了
+		
+		m{6cm}表示列的宽度，两个vspace表示表格内容上下的空白区高度
+		
+		\begin{verbatim}
+		想要不居中，则去掉\centering即可：>{\vspace{6mm}}m{6cm}<{\vspace{6mm}}
+		
+		（发现有的时候调试centering和vspace之类的时候会报错，可能原因是换行要用\tabularnewline，不要用\\）
+		\end{verbatim}
+		
+		
+		
+		法三：makecell宏包
+		\iffalse
+		\makegapedcells
+		\setcellgapes{3pt}
+		\newsavebox{\mybox}
+		\newcolumntype{X}[1]{>{\begin{lrbox}{\mybox}}c<{\end{lrbox}\makecell[#1]{\fbox{\usebox\mybox}}}}
+		\begin{tabular}{|X{cc}|X{cc}|X{cc}|}
+		\hline
+		A \rule{3mm}{15mm}  &  B \rule{3mm}{18mm} & \rule{3mm}{10mm} ${\displaystyle f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k)e^{\pm ikx_{n}}\,{\rm d}k}$ \tabularnewline\hline
+		T &1sssssssss&2\\\hline
+		\end{tabular}
+		
+		\begin{verbatim}
+		说明：
+		重新定义列格式 X{..}，比如 X{cc} 就是水平和竖直都是居中对齐
+		
+		\newsavebox{\mybox}
+		\newcolumntype{X}[1]{%
+			>{\begin{lrbox}{\mybox}}%
+			c%
+			<{\end{lrbox}\makecell[#1]{\usebox\mybox}}%
+		}
+		\end{verbatim}
+		\fi
+		
+		法三补充实例1：
+		
+		\begin{table}[h!]
+		\caption{Results of multi-label CRF model with different feature sets.}
+		\begin{tabular}{p{8cm} c c c  }
+		\hline
+		\rule{0pt}{8pt}\makebox[9cm][c]{\textbf{Feature set}} & \textbf{Precision} & \textbf{Recall} & \textbf{F${_1}$-Score} \tabularnewline
+		\hline
+		\rule{0pt}{8pt}CRF + BOW & 0.8189 & 0.5795 & 0.6787\tabularnewline
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS & 0.8052 & 0.6086 & 0.6932\tabularnewline
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS + capitalization & 0.8169 & 0.6299 & 0.7113\tabularnewline
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS + capitalization + case pattern& 0.8148 & 0.6364 & 0.7146\tabularnewline
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS + capitalization + case pattern + word representation& 0.8287 & 0.6872 & 0.7514\tabularnewline
+		\hline
+		\end{tabular}
+		\end{table}
+		
+		
+		
+		
+		
+		\begin{table}[h!]
+		\caption{Results of multi-label CRF model with different feature sets.}
+		\begin{tabular}{>{\raggedright\vspace{0mm}} m{7cm}<{\vspace{0mm}} c c c  }
+		\hline
+		\rule{0pt}{8pt}\makebox[7cm][c]{\textbf{Feature set}} & \textbf{Precision} & \textbf{Recall} & \textbf{F${_1}$-Score} \\
+		\hline
+		\rule{0pt}{8pt}CRF + BOW & 0.8189 & 0.5795 & 0.6787\\
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS & 0.8052 & 0.6086 & 0.6932\\
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS + capitalization & 0.8169 & 0.6299 & 0.7113\\
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS + capitalization + case pattern& 0.8148 & 0.6364 & 0.7146\\
+		%\hline
+		\rule{0pt}{8pt}CRF + BOW + POS + capitalization + case pattern + word representation& 0.8287 & 0.6872 & 0.7514\\
+		\hline
+		\end{tabular}
+		\end{table}
+		
+		\begin{verbatim}
+		（m{7cm}<{\vspace{0mm}}所在的那列下面可以加“\\”表格内换行）
+		\end{verbatim}
+		
+	\end{CJK}
+\end{document}
