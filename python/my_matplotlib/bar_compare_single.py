@@ -7,6 +7,9 @@ import numpy as np
 from matplotlib.ticker import MultipleLocator, NullLocator
 from scipy import interpolate
 
+plt.rc('font',family='Times New Roman')
+
+
 def make_model_compare_graph():
     fig = plt.figure(figsize = [5, 3])    #[width, height]
 

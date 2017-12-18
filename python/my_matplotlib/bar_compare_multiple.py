@@ -6,6 +6,8 @@ import numpy as np
 from matplotlib.ticker import MultipleLocator, NullLocator
 from scipy import interpolate
 
+plt.rc('font',family='Times New Roman')
+
 def make_sub_compare_graph(row_num, col_num, i, x1_data, y1_data, x2_data, y2_data, x3_data, y3_data, bar_width, title="", x_label="", y_label="", legend1="", legend2="", legend3="", x_range=[], y_range=[], xticks_x=[], xticks_label=[], yticks_y=[], yticks_label=[]):
 	'''用于画对比子图
 	x_range: 数组，x_range[0]表示最小值,x_range[1]表示最大值

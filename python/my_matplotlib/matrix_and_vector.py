@@ -16,6 +16,9 @@ elif platform.system() == "Darwin":
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+plt.rc('font',family='Times New Roman')
+
 def show_matrix(matrix, sentence1, sentence2, fig_path=None, fig_size=None, with_colorbar=False,
         with_norm=True):
     """ show matrix
