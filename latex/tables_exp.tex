@@ -9,10 +9,12 @@
 \usepackage{graphicx}
 
 
-%\usepackage{makecell}
+\usepackage{makecell}
 
 \usepackage{array}
 
+\usepackage{floatrow}
+\usepackage{booktabs}
 
 \begin{document}
 	\begin{CJK}{UTF8}{gbsn}
@@ -37,15 +39,13 @@
 		
 		下面要展示如何制作复杂的表格
 		
-		法一：使用tabu宏包
-		
+		法一：使用tabu宏包()
 		\tabulinesep =2ex
 		\begin{tabu} to 10cm {|X[$$ c] |X[$$ c]|X[$$4 c]|}
 			\hline  s & b &  f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k){\rm{e}}^{\pm{\rm{i}}kx_{n}}{\rm{d}}k\\
 			\hline T & -1 & 2\\
 			\hline
-			\end{tabu}
-		
+		\end{tabu}
 		
 		
 		
@@ -128,7 +128,7 @@
 		
 		
 		
-		
+		\iffalse
 		
 		\begin{table}[h!]
 		\caption{Results of multi-label CRF model with different feature sets.}
@@ -152,6 +152,113 @@
 		\begin{verbatim}
 		（m{7cm}<{\vspace{0mm}}所在的那列下面可以加“\\”表格内换行）
 		\end{verbatim}
+		
+		\fi
+		
+		
+		下面展示一个表格并列的case，用的是floatrow和booktabs宏包. 发现不适用于图片，因为标题会写table
+
+		\begin{table}
+		\RawFloats
+		\centering
+		\makebox[0pt][c]{\parbox{1\textwidth}{%
+				\begin{minipage}[b]{0.5\hsize}\centering
+				\begin{tabular}{r|rrrr}
+				\toprule
+				& \multicolumn{4}{c}{\textbf{Reference}} \\
+				\midrule
+				\textbf{Predicted}  & H & P & R & Q \\ 
+				\midrule
+				H &   3 &   0 &   0 &   0 \\ 
+				P &   0 &   5 &   0 &   0 \\ 
+				R &   0 &   0 &  19 &   1 \\ 
+				Q &   0 &   0 &   0 &  25 \\ 
+				\bottomrule 
+				\end{tabular}
+				\caption{SVMr confusion matrix.}
+				\label{tab:cmsvm}
+				\vskip 1cm
+				\begin{tabular}{r|rrrr}
+				\toprule
+				& \multicolumn{4}{c}{\textbf{Reference}} \\
+				\midrule
+				\textbf{Predicted}  & H & P & R & Q \\ 
+				\midrule
+				H &   2 &   0 &   0 &   0 \\ 
+				P &   0 &   5 &   0 &   0 \\ 
+				R &   1 &   0 &  19 &   0 \\ 
+				Q &   0 &   0 &   0 &  26 \\ 
+				\bottomrule 
+				\end{tabular}
+				\caption{RDA confusion matrix.}
+				\label{tab:cmrda}
+				\vskip 1cm
+				\begin{tabular}{r|rrrr}
+				\toprule
+				& \multicolumn{4}{c}{\textbf{Reference}} \\
+				\midrule
+				\textbf{Predicted}  & H & P & R & Q \\ 
+				\midrule
+				H &   3 &   0 &   0 &   0 \\ 
+				P &   0 &   4 &   0 &   0 \\ 
+				R &   0 &   0 &  19 &   0 \\ 
+				Q &   0 &   1 &   0 &  26 \\ 
+				\bottomrule 
+				\end{tabular}
+				\caption{PAM confusion matrix.}
+				\label{tab:cmpam}
+				\end{minipage}
+				\hfil
+				\begin{minipage}[b]{0.5\hsize}\centering
+				\begin{tabular}{r|rrrr}
+				\toprule
+				& \multicolumn{4}{c}{\textbf{Reference}} \\
+				\midrule
+				\textbf{Predicted}  & H & P & R & Q \\ 
+				\midrule
+				H &   2 &   0 &   0 &   0 \\ 
+				P &   0 &   4 &   0 &   0 \\ 
+				R &   1 &   0 &  19 &   0 \\ 
+				Q &   0 &   1 &   0 &  26 \\
+				\bottomrule 
+				\end{tabular}
+				\caption{PLS-LDA confusion matrix.}
+				\label{tab:cmplslda}
+				\vskip 1cm
+				\begin{tabular}{r|rrrr}
+				\toprule
+				& \multicolumn{4}{c}{\textbf{Reference}} \\
+				\midrule
+				\textbf{Predicted}  & H & P & R & Q \\ 
+				\midrule
+				H &   2 &   0 &   0 &   0 \\ 
+				P &   0 &   4 &   0 &   0 \\ 
+				R &   1 &   0 &  18 &   1 \\ 
+				Q &   0 &   1 &   1 &  25 \\
+				\bottomrule 
+				\end{tabular}
+				\caption{LDA confusion matrix.}
+				\label{tab:cmlda}
+				\vskip 1cm
+				\begin{tabular}{r|rrrr}
+				\toprule
+				& \multicolumn{4}{c}{\textbf{Reference}} \\
+				\midrule
+				\textbf{Predicted}  & H & P & R & Q \\ 
+				\midrule
+				H &   2 &   0 &   0 &   0 \\ 
+				P &   0 &   3 &   0 &   0 \\ 
+				R &   1 &   0 &  12 &   3 \\ 
+				Q &   0 &   2 &   7 &  23 \\ 
+				\bottomrule 
+				\end{tabular}
+				\caption{PLS confusion matrix.}
+				\label{tab:cmpls}
+				\end{minipage}
+				\hfil
+			}}
+			\end{table}
+
 		
 	\end{CJK}
 \end{document}

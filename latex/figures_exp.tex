@@ -5,6 +5,8 @@
 \usepackage{subfigure}
 %\usepackage{subfig}
 
+\usepackage{makecell}
+
 \begin{document}
 \begin{CJK}{UTF8}{gbsn}
 	
@@ -12,22 +14,31 @@
 	
 \section{exp}
 
-两张图片并列在一行(发现label无法引用到，这里也有讨论https://tex.stackexchange.com/questions/175184/using-cref-on-a-minipage-label)
+
+两张图并排，其中一张图还有两个子图
+和floatrow这个包冲突，会报错：Package floatrow Error: Caption(s) lost. \\caption Flower two.之类的
 \begin{figure}[!tbp]
+	\setlength{\abovecaptionskip}{0pt}
+	\setlength{\belowcaptionskip}{0pt}
 	\centering
 	\begin{minipage}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{imgs/flower1.png}
-		\label{fig:label1}
 		\caption{Flower one.}
 	\end{minipage}
-	\hfill     % 这行如果去掉了，两张图片中间的空间就没有了
-	\begin{minipage}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{imgs/flower2.png}
-		\label{fig:label2}
+	\hfill % 这行如果去掉了，两张图片中间的空间就没有了
+	\begin{minipage}[b]{0.55\textwidth}
+		\subfigure[SL=0.5]{
+			\label{fig:overall_cost_0.03} %% label for first subfigure
+			\includegraphics[width=0.31\textwidth]{imgs/flower1.png}
+		}
+		\subfigure[SL=0.5]{
+			\label{fig:overall_cost_0.04} %% label for first subfigure
+			\includegraphics[width=0.31\textwidth]{imgs/flower2.png}
+		}
 		\caption{Flower two.}
 	\end{minipage}
 \end{figure}
-	
+
 
 
 法二：子图模式，用subfig包
@@ -57,28 +68,13 @@
 
 
 
-两张图并排，其中一张图还有两个子图
-\begin{figure}[!tbp]
-	\setlength{\abovecaptionskip}{0pt}
-	\setlength{\belowcaptionskip}{0pt}
-	\centering
-	\begin{minipage}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{imgs/flower1.png}
-		\caption{Flower one.}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[b]{0.55\textwidth}
-		\subfigure[SL=0.5]{
-			\label{fig:overall_cost_0.03} %% label for first subfigure
-			\includegraphics[width=0.31\textwidth]{imgs/flower1.png}
-		}
-		\subfigure[SL=0.5]{
-			\label{fig:overall_cost_0.04} %% label for first subfigure
-			\includegraphics[width=0.31\textwidth]{imgs/flower2.png}
-		}
-		\caption{Flower two.}
-	\end{minipage}
-\end{figure}
+
+
+
+
+
+
+
 
 
 \end{CJK}
