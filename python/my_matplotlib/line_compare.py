@@ -1,12 +1,33 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 import numpy as np
-from . import LineStyler, LegendStyler
+from .stylers import LineStyler, LegendStyler
 
 plt.rc('font',family='Times New Roman')
 
 def make_line_graph(x_list, y_lists, x_label, y_label, legends, x_ticks=None, figure_path=None, figure_title=None, figure_size=[5, 3],
-        line_styler=None, legend_styler=None, y_range=None):
+        line_styler=None, legend_styler=None, y_range=None, with_marker_border=False):
+    """
+
+    Args:
+        x_list:
+        y_lists:
+        x_label:
+        y_label:
+        legends:
+        x_ticks:
+        figure_path:
+        figure_title:
+        figure_size:
+        line_styler:
+        legend_styler:
+        y_range:
+        with_marker_border: if True, the marker border would be black
+
+    Returns:
+
+    """
+
     assert len(y_lists) == len(legends)
     assert len(x_list) == len(y_lists[0]) == len(x_ticks)
 
@@ -40,19 +61,28 @@ def make_line_graph(x_list, y_lists, x_label, y_label, legends, x_ticks=None, fi
 
     for i in range(len(y_lists)):
         cur_style = line_styler.get_style(i)
-        plt.plot(x_list, y_lists[i], cur_style['style'], label=legends[i], linewidth=cur_style['line_width'],
-            markersize=cur_style['marker_size'], markeredgecolor=cur_style['color'], color=cur_style['color'])
+        if with_marker_border == False:
+            plt.plot(x_list, y_lists[i], cur_style['style'], label=legends[i], linewidth=cur_style['line_width'],
+                markersize=cur_style['marker_size'], markeredgecolor=cur_style['color'], color=cur_style['color'])
+        else:
+            plt.plot(x_list, y_lists[i], cur_style['style'], label=legends[i], linewidth=cur_style['line_width'],
+                markersize=cur_style['marker_size'], markeredgecolor="#666666", color=cur_style['color'])
 
-    plt.legend(loc=legend_styler.loc, frameon=legend_styler.frameon, prop=legend_styler.prop)
+    plt.legend(loc=legend_styler.loc, frameon=legend_styler.frameon, prop=legend_styler.prop, handlelength=legend_styler.handlelength)
     if figure_title is not None:
         plt.title(figure_title)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.tight_layout()
+    #plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
     if figure_path is None:
         plt.show()
     else:
-        plt.savefig(figure_path, dpi=300)
+        if figure_path.endswith("eps"):
+            plt.savefig(figure_path, dpi=600, format='eps', bbox_inches='tight', pad_inches=0.05)
+        else:
+            plt.savefig(figure_path, dpi=600, bbox_inches='tight', pad_inches=0.05)
+        #plt.savefig(figure_path, dpi=600, bbox_inches='tight')
 
 
 if __name__ == "__main__":
