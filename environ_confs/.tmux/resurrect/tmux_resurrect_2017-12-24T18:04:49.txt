@@ -1,0 +1,17 @@
+pane	0	0	:tj	0	:	0	:/home/eric-lin/StateGrid/TrajectoriesMining/StationPlacement	1	bash	:
+pane	0	1	:webroot	0	:	0	:/home/eric-lin/StateGrid/GridDataMap/WebRoot	1	bash	:
+pane	0	2	:dbscan	0	:	0	:/home/eric-lin/workspace/ImprovedDBSCAN/out/production/ImprovedDBSCAN	1	bash	:
+pane	0	3	:paper	0	:-	0	:/home/eric-lin/Documents/StationPlaningPaper/paper	1	bash	:
+pane	0	4	:tj2	0	:	0	:/home/eric-lin/StateGrid/TrajectoriesMining/StationPlacement/logs	1	bash	:
+pane	0	5	:bash	0	:	0	:/home/eric-lin/software/shadowsocks-go	1	bash	:
+pane	0	6	:bash	1	:*	0	:/home/eric-lin/workspace/CommonScripts	1	bash	:
+pane	1	0	:bash	1	:*	0	:/home/eric-lin	1	bash	:
+window	0	0	0	:	b49e,204x61,0,0,1
+window	0	1	0	:	b49f,204x61,0,0,2
+window	0	2	0	:	b4a0,204x61,0,0,3
+window	0	3	0	:-	b4a1,204x61,0,0,4
+window	0	4	0	:	b4a2,204x61,0,0,5
+window	0	5	0	:	b4a3,204x61,0,0,6
+window	0	6	1	:*	b4a4,204x61,0,0,7
+window	1	0	1	:*	b4a6,204x61,0,0,9
+state	0	1

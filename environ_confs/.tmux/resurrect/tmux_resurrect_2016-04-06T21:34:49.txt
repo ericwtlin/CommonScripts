@@ -1,0 +1,5 @@
+pane	numreg	0	:bash	1	:*	0	:/home/eric-lin/workspace/NumberRecognition	1	bash	:import numpy as np
+pane	numreg	0	:bash	1	:*	1	:/home/eric-lin/workspace/NumberRecognition	0	python3	:/home/eric-lin/anaconda3/bin/python3 /home/eric-lin/anaconda3/bin/ipython notebook
+pane	numreg	0	:bash	1	:*	2	:/home/eric-lin/workspace/NumberRecognition	0	python3	:/home/eric-lin/anaconda3/bin/python3 /home/eric-lin/anaconda3/bin/ipython
+window	numreg	0	1	:*	84b3,213x57,0,0{110x57,0,0,0,102x57,111,0[102x35,111,0,1,102x21,111,36,3]}
+state	numreg	
