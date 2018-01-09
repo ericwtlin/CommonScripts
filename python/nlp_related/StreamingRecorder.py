@@ -7,14 +7,14 @@ class StreamingRecorder():
         Args:
             names:  ['prediction', ... ]
         """
-        self.names = names
-        self.operators = dict()
-        self.recorder = dict()
+        self.__names = names
+        self.__operators = dict()
+        self.__recorder = dict()
         for name in names:
-            self.recorder[name] = []
+            self.__recorder[name] = []
 
     def record(self, name, values):
-        self.recorder[name].extend(values)
+        self.__recorder[name].extend(values)
 
     def get(self, name, operator=None):
         """
@@ -31,10 +31,16 @@ class StreamingRecorder():
         """
 
         if operator is None or operator == 'origin':
-            return self.recorder[name]
+            return self.__recorder[name]
         elif operator == 'mean':
-            return np.mean(self.recorder[name])
+            return np.mean(self.__recorder[name])
         elif operator == 'sum':
-            return np.sum(self.recorder[name])
+            return np.sum(self.__recorder[name])
 
+
+if __name__ == "__main__":
+    streaming_recorder = StreamingRecorder(['prediction'])
+    streaming_recorder.record('prediction', [1, 2, 3])
+    streaming_recorder.record('prediction', [4, 5, 6])
+    print(streaming_recorder.get('prediction', 'origin'))
 

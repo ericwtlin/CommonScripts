@@ -1,0 +1,8 @@
+{
+    "server":"s1.l3l.bid",
+    "server_port":2048,
+    "local_port":1080,
+    "password":"forgoogle",
+    "method": "aes-256-cfb",
+    "timeout":600
+}
