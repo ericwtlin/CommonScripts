@@ -3,7 +3,7 @@
 HTTP Server
 Respond to GET/POST requests
 
-Validated on Python 2.7
+Validated on Python 3.6
 
 Refer to: https://mafayyaz.wordpress.com/2013/02/08/writing-simple-http-server-in-python-with-rest-and-json/
 
@@ -26,19 +26,20 @@ curl -X GET http://localhost:8080/api/v1/getrecord/1        #return info
 
 """
 
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from SocketServer import ThreadingMixIn
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from socketserver import ThreadingMixIn
 import threading
 import argparse
 import re
 import cgi
 import ujson as json
 import urllib
-from urlparse import parse_qs
+from urllib.parse import parse_qs
 
 class Recorder(object):
     def __init__(self):
         self.records = {}
+
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
