@@ -52,6 +52,7 @@ class StreamingRecorder():
                     'sum': return sum of the values
                     'min': return min of the values
                     'max': return max of the values
+                    'distribution': return 0%, 10%, 20%, ..., 90%, 100% of values, from min to max
 
         Returns:
 
@@ -67,6 +68,18 @@ class StreamingRecorder():
             return np.min(self.__recorder[name])
         elif operator == 'max':
             return np.max(self.__recorder[name])
+        elif operator == 'distribution':
+            data_sorted = np.sort(self.__recorder[name])
+            distribution = []
+            for i in np.linspace(0, 0.9, 10):
+                if i != 1:
+                    distribution.append(data_sorted[int(i * len(data_sorted))])
+                else:
+                    distribution.append(data_sorted[-1])
+            return distribution
+
+
+
 
 
 if __name__ == "__main__":
@@ -74,4 +87,5 @@ if __name__ == "__main__":
     streaming_recorder.record('prediction', [1, 2, 3])
     streaming_recorder.record('prediction', [4, 5, 6])
     print(streaming_recorder.get('prediction', 'origin'))
+    print(streaming_recorder.get('prediction', 'distribution'))
 
