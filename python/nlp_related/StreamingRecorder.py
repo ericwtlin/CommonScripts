@@ -71,7 +71,7 @@ class StreamingRecorder():
         elif operator == 'distribution':
             data_sorted = np.sort(self.__recorder[name])
             distribution = []
-            for i in np.linspace(0, 0.9, 10):
+            for i in np.linspace(0, 1, 11):
                 if i != 1:
                     distribution.append(data_sorted[int(i * len(data_sorted))])
                 else:
