@@ -23,7 +23,7 @@ class StreamingRecorder():
         Returns:
 
         """
-        if isinstance(values, list):
+        if isinstance(values, list) or isinstance(values, np.ndarray):
             self.__recorder[name].extend(values)
         else:
             self.__recorder[name].append(values)
