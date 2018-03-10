@@ -78,6 +78,12 @@ class StreamingRecorder():
                     distribution.append(data_sorted[-1])
             return distribution
 
+    def clear_records(self, name=None):
+        if name is None:
+            for name in self.__names:
+                self.__recorder[name] = []
+        else:
+            self.__recorder[name] = []
 
 
 
