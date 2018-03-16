@@ -1,7 +1,5 @@
 """
 Doc inheriter
-这个方法有个问题：
-如果有多重继承的话，子类有DocInherit装饰，父类也有DocInherit装饰，则会在overridden = getattr(super(cls, obj), self.name, None)时陷入无限循环之中。
 """
 
 
@@ -29,7 +27,13 @@ class DocInherit(object):
             return self.get_no_inst(cls)
 
     def get_with_inst(self, obj, cls):
-        overridden = getattr(super(cls, obj), self.name, None)
+        """ called from instance.func()
+        """
+        #overridden = getattr(super(cls, obj), self.name, None)     # get the attribute/func of class as well, but I don't know why not to get the attribute/func by cls.__mro__
+        for parent in cls.__mro__[1:]:
+            overridden = getattr(parent, self.name, None)
+            if overridden:
+                break
 
         @wraps(self.mthd, assigned=('__name__', '__module__', '__doc__'))
         def f(*args, **kwargs):
@@ -38,6 +42,8 @@ class DocInherit(object):
         return self.use_parent_doc(f, overridden)
 
     def get_no_inst(self, cls):
+        """ called from Class.func()
+        """
         for parent in cls.__mro__[1:]:
             overridden = getattr(parent, self.name, None)
             if overridden:
@@ -88,6 +94,7 @@ if __name__ == "__main__":
     f = Foo()
     b = Bar()
     b2 = Bar2()
-    #print(f.foo.__doc__)
+    print(Foo.foo.__doc__)  #Frobber
+    print(f.foo.__doc__)    #Frobber
     print(b.foo.__doc__)    #Frobber
-    #print(b2.foo.__doc__)   #Frobber of son
+    print(b2.foo.__doc__)   #Frobber of son
