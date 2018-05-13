@@ -11,6 +11,8 @@
 %\Crefname{figure}{Fig.}{Fig.}
 
 \usepackage{caption}
+\usepackage{subcaption}
+
 
 \begin{document}
 \begin{CJK}{UTF8}{gbsn}
@@ -23,7 +25,7 @@
 两张图并排，其中一张图还有两个子图
 和floatrow这个包冲突，会报错：Package floatrow Error: Caption(s) lost. \\caption Flower two.之类的
 这个方法就是Fig.\ref{fig:my_flower1}图片的label取不到
-\begin{figure}[!tbp]
+\begin{figure*}[!h]
 	\setlength{\abovecaptionskip}{0pt}
 	\setlength{\belowcaptionskip}{0pt}
 	\centering
@@ -44,40 +46,65 @@
 		}
 		\caption{Flower two.}
 	\end{minipage}
-\end{figure}
+\end{figure*}
 
 
 
 法二：子图模式，用subfig包
 \iffalse    subfig和subfigure包有冲突，不能共用
-\begin{figure}%
+\begin{figure*}[!h]
 	\centering
 	\subfloat[label 1]{{\includegraphics[width=5cm]{imgs/flower1.png} }}%
 	\qquad
 	\subfloat[label 2]{{\includegraphics[width=5cm]{imgs/flower2.png} }}%
 	\caption{2 Figures side by side}%
 	\label{fig:example}%
-\end{figure}
+\end{figure*}
 \fi
 
 
 法三：用subfigure包
 %\iffalse    subfig和subfigure包有冲突，不能共用
-\begin{figure}
+\begin{figure*}[!h]
 	\hfill
 	\subfigure[Title A]{\includegraphics[width=5cm]{imgs/flower1.png}}
 	\hfill
 	\subfigure[Title B]{\includegraphics[width=5cm]{imgs/flower1.png}}
 	\hfill
 	\caption{Title for both}
-\end{figure}
+\end{figure*}
 %\fi
+
+%法四：用minipage + subcaption(subcaption与subfigure冲突)
+%\begin{figure*}[!h]
+%	\setlength{\abovecaptionskip}{0pt}
+%	\setlength{\belowcaptionskip}{0pt}
+%	\centering
+%	\begin{minipage}[b]{0.4\textwidth}
+%		\centering
+%		\subcaption{Beijing} {
+%			\label{fig:map_gridding_bj} 
+%			\includegraphics[width=0.9\textwidth]{imgs/flower1.png}
+%		}
+%	\end{minipage}
+%	%\hfill
+%	\begin{minipage}[b]{0.4\textwidth}
+%		\centering
+%		\subcaption{New York City} {
+%			\label{fig:map_gridding_bj} 
+%			\includegraphics[width=0.9\textwidth]{imgs/flower1.png}
+%		}
+%	\end{minipage}
+%	\caption{Map gridding of Beijing and New York City. The blue points denote the existing charging stations.}
+%	The decimal degree of side length of grids in Beijing and New York is 0.02 and 0.01, respectively.
+%	\label{fig:map_gridding}
+%\end{figure*}
 
 
 
 图片和表格并排, 用caption包, 参考：https://www.zhihu.com/question/29803796
 
-\begin{figure}[htb] 
+\begin{figure*}[!h] 
 	\begin{minipage}[b]{0.5\textwidth} 
 		\centering 
 		\includegraphics[width=0.8\textwidth]{imgs/flower1.png} 
@@ -97,12 +124,12 @@
 		\captionof{table}{This is a table}
 		\label{table:by:fig} 
 	\end{minipage} 
-\end{figure}
+\end{figure*}
 
 
 2*2布局的图片
 
-\begin{figure} 
+\begin{figure*}[!h] 
 	\centering 
 	\subfigure[subfigure 1-1]{\label{fig:subfig:a}
 		\includegraphics[width=0.45\linewidth]{imgs/flower1.png}}
@@ -117,11 +144,11 @@
 		\includegraphics[width=0.45\linewidth]{imgs/flower1.png}}
 	\caption{two figures}
 	\label{fig:subfig}
-\end{figure}
+\end{figure*}
 
 
 让两个并列但大小不等的图，垂直居中：http://www.ctex.org/documents/latex/graphics/node109.html
-\begin{figure} 
+\begin{figure*}[!h] 
 	\centering 
 	\begin{minipage}[c]{0.5\textwidth} 
 		\centering 
@@ -132,12 +159,12 @@
 		\includegraphics[width=2in]{imgs/flower1.png} 
 	\end{minipage} 
 	\caption{Centers Aligned Vertically} 
-\end{figure}
+\end{figure*}
 
 
 
 
-\begin{figure} [htb]
+\begin{figure*}[!h] 
 	\centering 
 	\begin{minipage}[c]{0.3\textwidth} 
 		\centering 
@@ -166,7 +193,7 @@
 		\caption{Multiple Rounds DBSCAN}
 		\label{fig:subfig}
 	\end{minipage} 
-\end{figure}
+\end{figure*}
 
 
 
