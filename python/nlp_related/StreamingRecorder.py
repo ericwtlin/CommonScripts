@@ -13,7 +13,7 @@ class StreamingRecorder():
         for name in names:
             self.__recorder[name] = []
 
-    def record(self, name, values):
+    def record(self, name, values, keep_dim=False):
         """ insert a col of multiple values
 
         Args:
@@ -24,11 +24,14 @@ class StreamingRecorder():
 
         """
         if isinstance(values, list) or isinstance(values, np.ndarray):
-            self.__recorder[name].extend(values)
+            if keep_dim is False:
+                self.__recorder[name].extend(values)
+            else:
+                self.__recorder[name].append(values)
         else:
             self.__recorder[name].append(values)
 
-    def record_one_row(self, values):
+    def record_one_row(self, values, keep_dim=False):
         """ insert a whole row
 
         Args:
@@ -39,7 +42,7 @@ class StreamingRecorder():
         """
         assert len(self.__names) == len(values)
         for name, value in zip(self.__names, values):
-            self.record(name, value)
+            self.record(name, value, keep_dim)
 
     def get(self, name, operator=None):
         """
