@@ -7,7 +7,7 @@
 
 
 \usepackage{graphicx}
-
+\usepackage{pbox}
 
 \usepackage{makecell}
 
@@ -40,23 +40,57 @@
 		下面要展示如何制作复杂的表格
 		
 		法一：使用tabu宏包()
-		\tabulinesep =2ex
+		
+		注意，表格内不允许填写美元符号（公式），会报错，默认tabu表格的整个环境都是公式，所以公式可以直接用，如果要写文字或者命令，需要加textup命令
+		%\tabulinesep =2ex
+		\begin{table}[!h]
+		\caption{符号表示说明}
+		\centering
 		\begin{tabu} to 10cm {|X[$$ c] |X[$$ c]|X[$$4 c]|}
-			\hline  s & b &  f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k){\rm{e}}^{\pm{\rm{i}}kx_{n}}{\rm{d}}k\\
-			\hline T & -1 & 2\\
-			\hline
+		\hline  s \textup{你好} & b &  f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k){\rm{e}}^{\pm{\rm{i}}kx_{n}}{\rm{d}}k\\
+		\hline T   \quad you ok& -1 & 2\xi\textup{\pbox{3cm}{你好，这是一个很长很长很长\\很长的行}}\\
+		\hline
 		\end{tabu}
+		\end{table}
+		
+		
+		\begin{table}[!h]
+			\caption{符号表示说明}
+			\centering
+			\begin{tabu} to 10cm {|X[$$ c] |X[$$3 c]|}
+				\hline  b &  f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k){\rm{e}}^{\pm{\rm{i}}kx_{n}}{\rm{d}}k\\
+				\hline -1 & 2\\
+				\hline
+			\end{tabu}
+		\end{table}
+		
+		\begin{table}[!h]
+		\caption{符号表示说明}
+		\label{table:NotationDescription}
+		\centering
+		\begin{tabu} to 14cm {|X[$$ c] |X[$$3 c]|}
+		\hline
+		\textup{\textbf{符号}} & \textup{\textbf{说明}}\\
+		\hline
+		L & \textup{\pbox{10cm}{$A$表示已存在的充电站数量；$B$表示需要新建的充电站数量。\\$A$表示已存在的充电站数量；$B$表示需要新建的充电站数量。}}\\
+		\hline
+		A, B & \textup{\makecell{$A$表示已存在的充电站数量；$B$表示需要新建的充电站数量。\\$A$表示已存在的充电站数量；$B$表示需要新建的充电站数量。}}\\
+		\hline
+		\end{tabu}
+		\end{table}
 		
 		
 		
 		法二：使用graphicx宏包. 这个方法和makecell宏包冲突
 		
-		
+		\begin{table}[!h]
 		\begin{tabular}{| c | >{\centering}c | >{\centering\vspace{6mm}}m{6cm}<{\vspace{6mm}} |}
 		\hline
 		\scalebox{1}[1]{s} & \scalebox{1}[1]{\setlength{\fboxsep}{0pt}\fbox{b}} &  ${\displaystyle f(x_{n})=\frac{1}{\sqrt{K_{0}}}\int_{-\infty}^{\infty}F(k)e^{\pm ikx_{n}}\,{\rm d}k}$ \tabularnewline\hline
 		T &1&2\tabularnewline\hline
 		\end{tabular}
+		\end{table}
+		
 		
 		\begin{verbatim}
 		说明：
@@ -107,7 +141,7 @@
 		
 		法三补充实例1：
 		
-		\begin{table}[h!]
+		\begin{table}[!h]
 		\caption{Results of multi-label CRF model with different feature sets.}
 		\begin{tabular}{p{8cm} c c c  }
 		\hline
@@ -158,7 +192,7 @@
 		
 		下面展示一个表格并列的case，用的是floatrow和booktabs宏包. 发现不适用于图片，因为标题会写table
 
-		\begin{table}
+		\begin{table}[!h]
 		\RawFloats
 		\centering
 		\makebox[0pt][c]{\parbox{1\textwidth}{%
