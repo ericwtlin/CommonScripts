@@ -2,6 +2,7 @@
 #python 3.5
 import shutil
 import os
+import pickle as pkl
 
 def walk_dir_bfs(dir_path):
     list_dirs = os.walk(dir_path)
@@ -53,6 +54,15 @@ def clear_directory(dir_path, specific_extensions=[]):
                 if file.endswith(extension):
                     os.remove(file)
                     break
+
+def load_from_pkl(pkl_path):
+    with open(pkl_path, 'rb') as fin:
+        obj = pkl.load(fin)
+    return obj
+
+def dump_to_pkl(obj, pkl_path):
+    with open(pkl_path, 'wb') as fout:
+        pkl.dump(obj, fout, protocol=pkl.HIGHEST_PROTOCOL)
 
 if __name__ == "__main__":
     l = dir_traversal("/home/eric-lin/StateGrid/TrajectoriesMining/")
