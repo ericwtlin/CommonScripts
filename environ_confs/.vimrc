@@ -14,6 +14,8 @@ set shiftwidth=4
 "开启时，在行首按TAB将加入shiftwidth个空格，否则加入tabstop个空格。
 set smarttab
 
+"自动设置当前文件目录为工作目录
+set autochdir
 
 "自动缩进或C风格缩进
 "set autoindent
