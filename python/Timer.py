@@ -31,6 +31,7 @@ class Timer(object):
              is better than time.clock() in Unix systems while time.clock() is better in Windows.
 
         Returns:
+            current time stamp
 
         """
         times_of_unit = {
